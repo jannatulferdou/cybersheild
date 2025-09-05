@@ -1,64 +1,111 @@
-// src/pages/Report.jsx
-import { motion } from "framer-motion";
+import React, { useState } from "react";
+import { Upload, ShieldCheck } from "lucide-react";
 
-export default function Report() {
+export default function ReportIncident() {
+  const [anonymous, setAnonymous] = useState(false);
+  const [caseId, setCaseId] = useState(null);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Generate random Case ID
+    const id = "CS-" + Math.floor(100000 + Math.random() * 900000);
+    setCaseId(id);
+  };
+
   return (
-    <section className="py-16 px-6 md:px-12 min-h-[80vh] bg-gradient-to-br from-gray-900 via-black to-gray-800 text-white">
-      <motion.div
-        className="max-w-2xl mx-auto"
-        initial={{ opacity: 0, y: 40 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1 }}
-      >
-        <motion.h2
-          className="text-3xl md:text-4xl font-bold mb-6 text-center"
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.3, duration: 0.8 }}
-        >
-          Report Cyberbullying
-        </motion.h2>
+    <section className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-800 text-white py-16 px-6">
+      <div className="max-w-3xl mx-auto bg-gray-800/60 backdrop-blur-md p-10 rounded-2xl shadow-xl border border-gray-700">
+        
+        {/* Header */}
+        <div className="text-center mb-10">
+          <h2 className="text-3xl font-extrabold text-cyan-400 mb-3">
+            Report an Incident
+          </h2>
+          <p className="text-gray-300">
+            Submit your report securely. Your identity will remain confidential.
+          </p>
+        </div>
 
-        <motion.form
-          className="space-y-4"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.6, duration: 1 }}
-        >
-          <motion.input
-            type="text"
-            placeholder="Incident Title"
-            className="w-full px-4 py-3 rounded-lg border focus:ring-2 focus:ring-cyan-400 bg-gray-100 text-black"
-            whileFocus={{ scale: 1.02 }}
-            transition={{ duration: 0.2 }}
-          />
+        {/* Form */}
+        {!caseId ? (
+          <form onSubmit={handleSubmit} className="space-y-6">
+            {/* Anonymity Toggle */}
+            <div className="flex items-center justify-between">
+              <label className="text-gray-300">Report Anonymously?</label>
+              <input
+                type="checkbox"
+                checked={anonymous}
+                onChange={(e) => setAnonymous(e.target.checked)}
+                className="h-5 w-5 text-cyan-500 rounded focus:ring-cyan-400"
+              />
+            </div>
 
-          <motion.textarea
-            rows="5"
-            placeholder="Describe the incident..."
-            className="w-full px-4 py-3 rounded-lg border focus:ring-2 focus:ring-cyan-400 bg-gray-100 text-black"
-            whileFocus={{ scale: 1.02 }}
-            transition={{ duration: 0.2 }}
-          />
+            {/* Name (hidden if anonymous) */}
+            {!anonymous && (
+              <div>
+                <label className="block text-gray-300 mb-2">Your Name</label>
+                <input
+                  type="text"
+                  placeholder="Enter your name"
+                  className="w-full px-4 py-3 rounded-lg bg-gray-900 border border-gray-700 focus:ring-2 focus:ring-cyan-500 outline-none"
+                />
+              </div>
+            )}
 
-          <motion.input
-            type="text"
-            placeholder="Your Contact (optional)"
-            className="w-full px-4 py-3 rounded-lg border focus:ring-2 focus:ring-cyan-400 bg-gray-100 text-black"
-            whileFocus={{ scale: 1.02 }}
-            transition={{ duration: 0.2 }}
-          />
+            {/* Incident Description */}
+            <div>
+              <label className="block text-gray-300 mb-2">Incident Details</label>
+              <textarea
+                rows="5"
+                placeholder="Describe the incident..."
+                required
+                className="w-full px-4 py-3 rounded-lg bg-gray-900 border border-gray-700 focus:ring-2 focus:ring-cyan-500 outline-none"
+              ></textarea>
+            </div>
 
-          <motion.button
-            type="submit"
-            className="w-full px-6 py-3 rounded-lg bg-cyan-500 hover:bg-cyan-600 transition shadow-lg font-semibold"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            Submit Report
-          </motion.button>
-        </motion.form>
-      </motion.div>
+            {/* Upload Evidence */}
+            <div>
+              <label className="block text-gray-300 mb-2">
+                Upload Evidence (Screenshots, files, or links)
+              </label>
+              <div className="flex items-center justify-center w-full">
+                <label className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-gray-600 rounded-lg cursor-pointer hover:bg-gray-700/40">
+                  <Upload className="h-8 w-8 text-cyan-400 mb-2" />
+                  <span className="text-gray-400">Click to upload or paste link</span>
+                  <input type="file" className="hidden" />
+                </label>
+              </div>
+              <input
+                type="url"
+                placeholder="Or paste evidence link"
+                className="mt-3 w-full px-4 py-3 rounded-lg bg-gray-900 border border-gray-700 focus:ring-2 focus:ring-cyan-500 outline-none"
+              />
+            </div>
+
+            {/* Submit */}
+            <button
+              type="submit"
+              className="w-full flex items-center justify-center gap-2 bg-cyan-600 hover:bg-cyan-700 text-white font-semibold py-3 rounded-lg transition shadow-lg"
+            >
+              <ShieldCheck className="h-5 w-5" />
+              Send to Police
+            </button>
+          </form>
+        ) : (
+          /* Case ID Confirmation */
+          <div className="text-center py-10">
+            <ShieldCheck className="h-14 w-14 mx-auto text-green-400 mb-4" />
+            <h3 className="text-2xl font-bold mb-2">Report Submitted Successfully!</h3>
+            <p className="text-gray-300 mb-4">
+              Your Case ID for tracking is:{" "}
+              <span className="text-cyan-400 font-mono">{caseId}</span>
+            </p>
+            <p className="text-gray-400">
+              Please save this Case ID to follow up on your report.
+            </p>
+          </div>
+        )}
+      </div>
     </section>
   );
 }
