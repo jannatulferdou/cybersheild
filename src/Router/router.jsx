@@ -13,6 +13,8 @@ import About from '../pages/About';
 import Contact from '../pages/Contact/Contact';
 import Report from '../pages/Report/Report';
 import BlogsArticles from '../pages/Blog/Blog';
+import SafetyTools from '../pages/safety/SafetyTools';
+import PlaybookPage from '../pages/safety/render';
 
 const router = createBrowserRouter([
     {
@@ -45,6 +47,14 @@ const router = createBrowserRouter([
         {
           path: '/blog',
           Component: BlogsArticles
+        },
+        {
+          path:'/safe',
+          Component:SafetyTools
+        },
+        {
+          path:'/playbook',
+          Component:PlaybookPage
         }
     ]
     }
