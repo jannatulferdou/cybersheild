@@ -1,113 +1,77 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
-import Lottie from "lottie-react";
+import { Link } from "react-router-dom";
+import { ShieldX } from "lucide-react";
+import { motion } from "framer-motion";
 
-export default function ErrorPage({
-  code = 404,
-  title = "Page Not Found",
-  message = "We couldn't find the page you're looking for.",
-  lottiePath = "./cybersecurity.json", // default path in public/
-  showHome = true,
-}) {
-  const navigate = useNavigate();
-  const [animationData, setAnimationData] = React.useState(null);
-
-  // Load animation data with a custom fetch to avoid the responseText error
-  React.useEffect(() => {
-    const loadAnimation = async () => {
-      try {
-        const response = await fetch(lottiePath);
-        const data = await response.json();
-        setAnimationData(data);
-      } catch (error) {
-        console.error("Failed to load Lottie animation:", error);
-        setAnimationData(null);
-      }
-    };
-
-    loadAnimation();
-  }, [lottiePath]);
-
+export default function ErrorPage() {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-black text-white px-6">
-      <div className="max-w-5xl w-full grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-        {/* Left: Animation */}
-        <div className="flex items-center justify-center">
-          <div className="w-full max-w-md">
-            <div className="rounded-2xl overflow-hidden bg-black/20 p-4">
-              {/* Use animationData instead of path to avoid the XMLHttpRequest issue */}
-              {animationData ? (
-                <Lottie
-                  animationData={animationData}
-                  loop={true}
-                  autoplay={true}
-                  style={{ width: "100%", height: "100%" }}
-                />
-              ) : (
-                <div className="text-gray-500 text-center py-10">
-                  Animation loading...
-                </div>
-              )}
-            </div>
+    <section className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-black to-gray-800 text-white overflow-hidden">
+      {/* Subtle background effect */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-gray-900/80"></div>
+      <div className="absolute -top-40 -right-40 w-96 h-96 bg-cyan-600/20 rounded-full blur-3xl"></div>
+      <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl"></div>
+
+      {/* Content */}
+      <motion.div
+        className="relative z-10 text-center px-6 max-w-lg"
+        initial={{ opacity: 0, y: 40 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1 }}
+      >
+        {/* Icon */}
+        <motion.div
+          initial={{ scale: 0.8, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ delay: 0.2, duration: 0.8 }}
+          className="flex justify-center mb-6"
+        >
+          <div className="bg-cyan-600/10 p-8 rounded-full border border-cyan-500/30 shadow-lg">
+            <ShieldX size={72} className="text-cyan-400" />
           </div>
-        </div>
+        </motion.div>
 
-        {/* Right: Text content - unchanged from your original design */}
-        <div className="flex flex-col gap-6">
-          <div className="flex items-center gap-4">
-            <div className="text-6xl font-extrabold text-white">{code}</div>
-            <div>
-              <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-white">
-                {title}
-              </h1>
-              <p className="mt-2 text-gray-300 max-w-xl">{message}</p>
-            </div>
-          </div>
+        {/* Headings */}
+        <motion.h1
+          className="text-7xl md:text-8xl font-extrabold mb-4 text-cyan-400 drop-shadow-lg"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.3 }}
+        >
+          404
+        </motion.h1>
+        <motion.h2
+          className="text-2xl md:text-3xl font-bold mb-4"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.4 }}
+        >
+          Page Not Found
+        </motion.h2>
 
-          <div className="flex flex-wrap gap-3 items-center">
-            {showHome && (
-              <button
-                onClick={() => navigate("/")}
-                className="inline-flex items-center gap-2 rounded-full bg-cyan-500 px-5 py-3 text-sm font-semibold text-black hover:bg-cyan-400 transition-shadow shadow-lg"
-              >
-                Go Home
-              </button>
-            )}
+        {/* Text */}
+        <motion.p
+          className="text-gray-300 mb-8 leading-relaxed"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.5 }}
+        >
+          The page you’re looking for doesn’t exist or has been moved.  
+          Don’t worry — you’re still under <span className="text-cyan-400 font-semibold">CyberShield</span> protection.
+        </motion.p>
 
-            <button
-              onClick={() => window.history.back()}
-              className="inline-flex items-center gap-2 rounded-full border border-gray-700 px-4 py-3 text-sm text-gray-300 hover:text-white hover:border-cyan-500 transition"
-            >
-              Go Back
-            </button>
-
-            <a
-              href="/report"
-              className="ml-2 inline-flex items-center gap-2 rounded-full px-4 py-3 text-sm font-medium bg-transparent text-cyan-400 border border-cyan-600 hover:bg-cyan-600/10 transition"
-            >
-              Report an Issue
-            </a>
-          </div>
-
-          {/* Helpful links / quick actions */}
-          <div className="mt-4">
-            <h4 className="text-sm text-gray-400 mb-3">Quick Help</h4>
-            <ul className="space-y-2 text-sm text-gray-300">
-              <li>
-                • Need urgent help? Call PCSW:{" "}
-                <span className="text-cyan-300 font-semibold">01320-000888</span>
-              </li>
-              <li>• Visit <a href="/awareness" className="text-cyan-300 hover:underline">Awareness & Resources</a> for safety tips</li>
-              <li>• Or <a href="/contact" className="text-cyan-300 hover:underline">contact support</a></li>
-            </ul>
-          </div>
-
-          {/* small footer note */}
-          <div className="mt-auto text-xs text-gray-600">
-            © {new Date().getFullYear()} CyberShield — Making online spaces safer.
-          </div>
-        </div>
-      </div>
-    </div>
+        {/* Button */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.6 }}
+        >
+          <Link
+            to="/"
+            className="inline-block px-8 py-3 rounded-xl bg-cyan-500 hover:bg-cyan-600 text-white font-semibold shadow-lg transition"
+          >
+            🔙 Back to Home
+          </Link>
+        </motion.div>
+      </motion.div>
+    </section>
   );
 }
