@@ -8,7 +8,7 @@ const awarenessItems = [
     description:
       "Read cyber safety tips, success stories, and expert advice to stay protected online.",
     icon: <BookOpen className="h-10 w-10 text-cyan-400" />,
-    link: "/blog",
+    link: "/blogs",
   },
   {
     title: "Workshops & Webinars",
