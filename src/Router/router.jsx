@@ -15,6 +15,8 @@ import Report from '../pages/Report/Report';
 import BlogsArticles from '../pages/Blog/Blog';
 import SafetyTools from '../pages/safety/SafetyTools';
 import PlaybookPage from '../pages/safety/render';
+import BlogList from '../pages/Blog/Blog';
+import BlogDetails from '../pages/Blog/BlogDetails';
 
 const router = createBrowserRouter([
     {
@@ -45,8 +47,8 @@ const router = createBrowserRouter([
           Component: Report
         },
         {
-          path: '/blog',
-          Component: BlogsArticles
+          path: '/blogs',
+          Component: BlogList
         },
         {
           path:'/safe',
@@ -55,6 +57,10 @@ const router = createBrowserRouter([
         {
           path:'/playbook',
           Component:PlaybookPage
+        },
+        {
+          path:'/blog/:id',
+          Component:BlogDetails
         }
     ]
     }

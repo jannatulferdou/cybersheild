@@ -1,145 +1,76 @@
-import React from "react";
-import { CalendarDays, User } from "lucide-react";
+import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 
 const blogs = [
   {
     id: 1,
-    title: "5 Simple Ways to Stay Safe from Cyberbullying",
+    title: "The Rise of Cyberbullying in Bangladesh — Why It Matters Now",
+    intro: "Bangladesh has witnessed an extraordinary digital transformation. But alongside opportunities comes the darker reality of cyberbullying...",
+    date: "August 2025",
     author: "CyberShield Team",
-    date: "Aug 28, 2025",
-    excerpt:
-      "Learn practical tips you can use right away to protect yourself and your loved ones from online harassment.",
-    image: "https://source.unsplash.com/600x400/?cybersecurity,safety",
-    link: "#",
+    image: "https://res.cloudinary.com/dwcqwzm0f/image/upload/v1757254857/cyber_ztd6q9.png",
   },
   {
     id: 2,
-    title: "How Rina Fought Back: A Cyberbullying Success Story",
-    author: "CyberShield Stories",
-    date: "Sep 1, 2025",
-    excerpt:
-      "Rina’s journey from being a victim of online harassment to becoming a digital safety advocate.",
-    image: "https://source.unsplash.com/600x400/?internet,justice",
-    link: "#",
+    title: "From DSA to CSO 2025 — The Legal Evolution of Cybercrime Laws",
+    intro: "Bangladesh’s legal framework has rapidly evolved from DSA 2018 to CSO 2025, reflecting the nation’s struggle to balance justice and digital freedom...",
+    date: "August 2025",
+    author: "CyberShield Team",
+    image: "https://res.cloudinary.com/dwcqwzm0f/image/upload/v1757255238/cso_uytqxs.jpg",
   },
   {
     id: 3,
-    title: "Know Your Rights: Cyber Laws in Bangladesh",
-    author: "Legal Awareness Hub",
-    date: "Sep 3, 2025",
-    excerpt:
-      "Understanding the ICT Act and Digital Security Act to know what protections are available to you.",
-    image: "https://source.unsplash.com/600x400/?law,technology",
-    link: "#",
-  },
-  {
-    id: 4,
-    title: "Parents’ Guide to Protecting Kids Online",
+    title: "Real Case Spotlight — The Facebook Blackmail Incident",
+    intro: "A Dhaka student faced online blackmail through Facebook. Here’s how PCSW’s intervention turned fear into justice...",
+    date: "August 2025",
     author: "CyberShield Team",
-    date: "Sep 5, 2025",
-    excerpt:
-      "Tips for parents to help children navigate online spaces safely and responsibly.",
-    image: "https://source.unsplash.com/600x400/?parents,online-safety",
-    link: "#",
-  },
-  {
-    id: 5,
-    title: "The Psychology of Cyberbullying: Why It Happens",
-    author: "Dr. Farhana Rahman",
-    date: "Sep 7, 2025",
-    excerpt:
-      "An analysis of the mental and social factors that drive people to bully online.",
-    image: "https://source.unsplash.com/600x400/?psychology,mental-health",
-    link: "#",
-  },
-  {
-    id: 6,
-    title: "Digital Detox: Reducing Stress from Social Media",
-    author: "Wellness Hub",
-    date: "Sep 10, 2025",
-    excerpt:
-      "How taking breaks from social media can improve your mental well-being.",
-    image: "https://source.unsplash.com/600x400/?digital,wellness",
-    link: "#",
-  },
-  {
-    id: 7,
-    title: "Top 10 Apps for Online Safety in 2025",
-    author: "Tech Review BD",
-    date: "Sep 12, 2025",
-    excerpt:
-      "A curated list of the most effective tools to protect your privacy and security online.",
-    image: "https://source.unsplash.com/600x400/?apps,technology",
-    link: "#",
-  },
-  {
-    id: 8,
-    title: "From Victim to Advocate: Youth Leading Change",
-    author: "Youth Voice",
-    date: "Sep 15, 2025",
-    excerpt:
-      "Meet the inspiring young leaders in Bangladesh who turned their struggles into campaigns for digital safety.",
-    image: "https://source.unsplash.com/600x400/?youth,leadership",
-    link: "#",
+    image: "https://res.cloudinary.com/dwcqwzm0f/image/upload/v1757255388/Report_Blackmail_on_Facebook_uywcvd.jpg",
   },
 ];
 
-export default function BlogsArticles() {
+export default function BlogList() {
   return (
-    <section
-      id="blogs"
-      className="py-20 bg-gradient-to-b from-gray-900 via-black to-gray-800 text-white"
-    >
-      <div className="max-w-6xl mx-auto px-6 lg:px-8">
-        {/* Section Header */}
-        <div className="text-center mb-14">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-4">
-            Blogs & Articles
-          </h2>
-          <p className="text-gray-400 max-w-2xl mx-auto text-lg">
-            Explore stories, tips, and resources to make your online presence
-            safer and stronger.
-          </p>
-        </div>
+    <section className="bg-gradient-to-br from-gray-900 via-black to-gray-800 py-16 px-6">
+      <div className="max-w-7xl mx-auto">
+        <motion.h1
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="text-4xl md:text-5xl font-extrabold text-center text-white mb-12"
+        >
+          CyberShield <span className="text-cyan-400">Blog</span>
+        </motion.h1>
 
-        {/* Blog Grid */}
-        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
-          {blogs.map((blog) => (
-            <div
+        <div className="grid md:grid-cols-3 gap-8">
+          {blogs.map((blog, index) => (
+            <motion.div
               key={blog.id}
-              className="bg-gray-800/60 rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition border border-gray-700"
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.2, duration: 0.8 }}
+              className="bg-gray-800/80 backdrop-blur-md border border-gray-700 rounded-2xl overflow-hidden shadow-lg hover:shadow-cyan-500/20 hover:-translate-y-1 transition transform"
             >
-              {/* Image */}
               <img
                 src={blog.image}
                 alt={blog.title}
-                className="w-full h-48 object-cover"
+                className="h-48 w-full object-cover"
               />
-
-              {/* Content */}
               <div className="p-6">
-                <h3 className="text-xl font-bold mb-2">{blog.title}</h3>
-                <p className="text-gray-400 text-sm mb-4">{blog.excerpt}</p>
-
-                {/* Meta Info */}
-                <div className="flex items-center justify-between text-sm text-gray-500 mb-4">
-                  <div className="flex items-center gap-2">
-                    <User className="h-4 w-4" /> {blog.author}
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <CalendarDays className="h-4 w-4" /> {blog.date}
-                  </div>
-                </div>
-
-                {/* Read More */}
-                <a
-                  href={blog.link}
-                  className="inline-block mt-2 text-cyan-400 hover:text-cyan-300 font-semibold transition"
+                <h2 className="text-xl font-semibold text-white mb-3">
+                  {blog.title}
+                </h2>
+                <p className="text-gray-300 mb-4 text-sm">{blog.intro}</p>
+                <p className="text-xs text-gray-400 mb-4">
+                  {blog.date} • {blog.author}
+                </p>
+                <Link
+                  to={`/blog/${blog.id}`}
+                  className="inline-block text-cyan-400 font-medium hover:underline"
                 >
                   Read More →
-                </a>
+                </Link>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
